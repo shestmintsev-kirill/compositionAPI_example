@@ -1,30 +1,37 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div id="app">
+    <select v-model="selectedTab">
+      <option value="techcrunch">TechCrunch</option>
+      <option value="starwars">StarWars</option>
+    </select>
+    <hr />
+    <TechCrunch v-if="selectedTab === 'techcrunch'" />
+    <StarWars v-if="selectedTab === 'starwars'" />
   </div>
-  <router-view/>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import TechCrunch from "./components/TechCrunch.vue";
+import StarWars from "./components/StarWars.vue";
 
-#nav {
-  padding: 30px;
+export default {
+  name: "App",
+  components: {
+    TechCrunch,
+    StarWars,
+  },
+  data() {
+    return {
+      selectedTab: "techcrunch",
+    };
+  },
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  watch: {
+    selectedTab() {
+      window.location.hash = "";
+    },
+  },
+};
+</script>
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+<style></style>
